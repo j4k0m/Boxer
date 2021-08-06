@@ -12,6 +12,7 @@ Automation magic bash script that will help you during playing Hackthebox or Try
 ```bash
 Usage: ./boxer.sh <target>
 ```
+![alt example](https://i.imgur.com/ED8QYTU.png)
 
 # To do
 
