@@ -12,7 +12,7 @@ Automation magic bash script that will help you during playing Hackthebox or Try
 ```bash
 Usage: ./boxer.sh <target>
 ```
-Test on: Ubuntu WSL2
+Tested on: Ubuntu WSL2
 
 ![alt example](https://i.imgur.com/ED8QYTU.png)
 
