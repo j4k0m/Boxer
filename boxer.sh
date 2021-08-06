@@ -40,10 +40,10 @@ else
     exit 1
 fi
 
-if [ $(cat ./reports/$1/nmap.txt | grep ftp | wc -l) -gt 0 ]; then
+if [ $(cat ./reports/$1/nmap.txt | grep ftp -m 1 | wc -l) -gt 0 ]; then
     echo -e "\e[1;32m[+]\e[0m FTP service found."
 
-    FTP_PORT=$(cat ./reports/$1/nmap.txt | grep ftp | cut -d "/" -f 1)
+    FTP_PORT=$(cat ./reports/$1/nmap.txt | grep ftp -m 1 | cut -d "/" -f 1)
     echo -e "\e[1;32m[+]\e[0m FTP port: $FTP_PORT"
 
     echo -e "\e[1;32m[+]\e[0m Checking if FTP anon login is enabled..."
