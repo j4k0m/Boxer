@@ -21,11 +21,19 @@ fi
 
 ([ -d "./reports/$1" ] && echo -e "\e[1;31m[-]\e[0m Folder target already exists, creating new one..." && rm -r ./reports/$1 && mkdir ./reports/$1) || mkdir ./reports/$1
 
+if [[ $1 =~ ^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$ ]]; then
+    echo -e "\e[1;32m[+]\e[0m Starting on $1."
+else
+    echo -e "\e[1;31m[-]\e[0m Invalid domain name."
+    exit 1
+fi
+
 ping -c 1 $1 > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo -e "\e[1;31m[-]\e[0m I can't reach the host: $1! please check you vpn connection."
     exit 1
 fi
+
 
 echo -e "\e[1;32m[+]\e[0m Running nmap scan... (nmap -sC -sV $1 -o ./reports/$1/nmap.txt)"
 nmap -sC -sV $1 -o ./reports/$1/nmap.txt &> /dev/null
