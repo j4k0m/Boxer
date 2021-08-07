@@ -32,7 +32,7 @@ nmap -sC -sV $1 -o ./reports/$1/nmap.txt &> /dev/null
 
 echo -e "\e[1;32m[+]\e[0m Getting open ports..."
 
-if [ -s ./reports/$1/nmap.txt ]; then
+if [ $(./reports/$1/nmap.txt | grep open | wc -l) -gt 0 ]; then
     cat ./reports/$1/nmap.txt | grep open
 else
     echo -e "\e[1;31m[-]\e[0m No open ports found."
