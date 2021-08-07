@@ -70,7 +70,7 @@ if [ $(cat ./reports/$1/nmap.txt | grep http | wc -l) -gt 0 ]; then
         echo -e "\e[1;32m[+]\e[0m Getting paths from dirb output..."
         if [ $(cat ./reports/$1/dirb-$i.txt | grep "+ http://" | wc -l) -gt 0 ]; then
             echo -e "\e[1;32m[+]\e[0m Paths found for http://$1:$i/ :"
-            cat ./reports/$1/dirb-$i.txt | grep "+ http://"
+            cat ./reports/$1/dirb-$i.txt | grep "+ http://" | awk '{print $1 " " $2}'
         else
             echo -e "\e[1;31m[-]\e[0m No paths found from dirb output."
         fi
