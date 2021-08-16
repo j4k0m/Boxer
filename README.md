@@ -16,6 +16,6 @@ Tested on: Ubuntu WSL2
 
 ![alt example](https://i.imgur.com/ED8QYTU.png)
 
-# To do
+# Share
 
-The tool is not completed yet, still more to add.
+If you have any idea to add, I will be glad to know about it (ClickMe)[https://github.com/RyouYoo/Boxer/issues/new]
