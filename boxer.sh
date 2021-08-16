@@ -12,6 +12,12 @@ if [ ! -f /usr/bin/dirb ]; then
     clear
 fi
 
+if [ ! -f /usr/bin/gobuster ]; then
+    echo -e "\e[1;31m[-]\e[0m Gobuster is not installed. Installing gobuster."
+    sudo apt-get -y install gobuster
+    clear
+fi
+
 [ ! -d "./reports" ] && mkdir ./reports
 
 if [ $# -eq 0 ]; then
@@ -76,9 +82,9 @@ if [ $(cat ./reports/$1/nmap.txt | grep http | wc -l) -gt 0 ]; then
         echo -e "\e[1;32m[+]\e[0m Running dirb..."
         dirb http://$1:$i -o ./reports/$1/dirb-$i.txt &> /dev/null
         echo -e "\e[1;32m[+]\e[0m Getting paths from dirb output..."
-        if [ $(cat ./reports/$1/dirb-$i.txt | grep "+ http://" | wc -l) -gt 0 ]; then
+        if [ $(grep -Eo '(http|https)://[^/"]+/.* ' ./reports/$1/dirb-$i.txt | wc -l) -gt 1 ]; then
             echo -e "\e[1;32m[+]\e[0m Paths found for http://$1:$i/ :"
-            cat ./reports/$1/dirb-$i.txt | grep "+ http://" | awk '{print $1 " " $2}'
+            grep -Eo '(http|https)://[^/"]+/.* ' ./reports/$1/dirb-$i.txt | sort -u | uniq
         else
             echo -e "\e[1;31m[-]\e[0m No paths found from dirb output."
         fi
@@ -86,4 +92,25 @@ if [ $(cat ./reports/$1/nmap.txt | grep http | wc -l) -gt 0 ]; then
 else
     echo -e "\e[1;31m[-]\e[0m No HTTP service found."
     exit 1
+fi
+
+echo -e "\e[1;32m[+]\e[0m Running gobuster for vhosts discovery..."
+gobuster vhost -u https://$1 -w ./wordlists/vhosts.txt -t 100 -r -m 5 -o ./reports/$1/gobuster_vhosts.txt &> /dev/null
+
+if [ $(cat ./reports/$1/gobuster_vhosts.txt | grep "Found" | wc -l) -gt 0 ]; then
+    echo -e "\e[1;32m[+]\e[0m Vhosts found: "
+    cat ./reports/$1/gobuster_vhosts.txt | grep "Found" | awk '{print $2}'
+    echo -e "\e[1;32m[+]\e[0m Running dirb..."
+    for i in $(cat ./reports/$1/gobuster_vhosts.txt | grep "Found" | awk '{print $2}'); do
+        dirb http://$i -o ./reports/$1/dirb-$i.txt &> /dev/null
+        echo -e "\e[1;32m[+]\e[0m Getting paths from dirb output..."
+        if [ $(grep -Eo '(http|https)://[^/"]+/.* ' ./reports/$1/dirb-$i.txt | wc -l) -gt 1 ]; then
+            echo -e "\e[1;32m[+]\e[0m Paths found for http://$i/ :"
+            grep -Eo '(http|https)://[^/"]+/.* ' ./reports/$1/dirb-$i.txt | sort -u | uniq
+        else
+            echo -e "\e[1;31m[-]\e[0m No paths found from dirb output."
+        fi
+    done
+else
+    echo -e "\e[1;31m[-]\e[0m No vhosts found."
 fi
