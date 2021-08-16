@@ -18,4 +18,4 @@ Tested on: Ubuntu WSL2
 
 # Share
 
-If you have any idea to add, I will be glad to know about it (ClickMe)[https://github.com/RyouYoo/Boxer/issues/new]
+If you have any idea to add, I will be glad to know about it [ClickMe](https://github.com/RyouYoo/Boxer/issues/new)
