@@ -1,5 +1,5 @@
 # Boxer
-Automation magic bash script that will help you during playing Hackthebox or Tryhackme boxes.
+Auto enumeration tool that will help during hacking on HackTheBox, TryHackMe...etc
 
 # Features
 
