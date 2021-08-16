@@ -6,6 +6,7 @@ Auto enumeration tool that will help during hacking on HackTheBox, TryHackMe...e
 - Nmap scan with -sC and -sV flags.
 - Testing for anonymous ftp login.
 - Dirb against all web services.
+- Running Vhosts scan against the target, and dirb scan against the vhosts.
 
 # Usage
 
