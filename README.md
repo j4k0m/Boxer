@@ -1,5 +1,5 @@
 # Boxer
-Auto enumeration tool that will help you during playing on HackTheBox, TryHackMe...etc
+Auto scanning tool that will help you during playing on HackTheBox, TryHackMe...etc
 
 # Features
 
