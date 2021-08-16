@@ -13,9 +13,7 @@ Auto enumeration tool that will help during hacking on HackTheBox, TryHackMe...e
 ```bash
 Usage: ./boxer.sh <target>
 ```
-Tested on: Ubuntu WSL2
-
-![alt example](https://i.imgur.com/ED8QYTU.png)
+Tested on: Ubuntu WSL2 and KaliLinux
 
 # Share
 
